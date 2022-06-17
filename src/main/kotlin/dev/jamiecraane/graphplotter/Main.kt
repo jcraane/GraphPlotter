@@ -2,10 +2,13 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -16,15 +19,45 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import kotlin.math.roundToInt
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import dev.jamiecraane.extensions.toScreenX
+import dev.jamiecraane.extensions.toScreenY
 
 @Composable
 @Preview
 fun App() {
-    var text by remember { mutableStateOf("Hello, World2!") }
-    val canvasSize = 600.dp
-
     MaterialTheme {
-        GraphPaper()
+        var coordinates by remember { mutableStateOf("-2,-2;0,2;2,-2;-2,-2") }
+        val coordinateList: List<Pair<Int, Int>> by remember(coordinates) {
+            val list = if (coordinates.isNotBlank()) {
+                try {
+                    coordinates.split(";")
+                        .map { coordinate ->
+                            val xy = coordinate.split(",")
+                            xy.first().toInt() to xy.last().toInt()
+                        }
+                } catch (e: Exception) {
+                    emptyList()
+                }
+            } else {
+                emptyList()
+            }
+
+            mutableStateOf(list)
+        }
+
+        Column() {
+            Row() {
+                Text(text = "Coordinaten: x,y;x,y")
+                TextField(value = coordinates, onValueChange = {
+                    coordinates = it
+                })
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+            GraphPaper(coordinates = coordinateList)
+        }
     }
 }
 
@@ -32,7 +65,9 @@ fun App() {
 fun GraphPaper(
     modifier: Modifier = Modifier,
     numberOfBoxes: Int = 20,
+    coordinates: List<Pair<Int, Int>>
 ) {
+    println(coordinates)
     val gridColor = Color(0xFFBDBDBD)
     val halfNumberOfboxes = numberOfBoxes / 2
 
@@ -43,9 +78,13 @@ fun GraphPaper(
 
         gridLines(midX, midY, halfNumberOfboxes, gridColor)
 
-        for (i in -10..10) {
-            drawCircle(Color.Blue, 5f, Offset(i.toScreenX(midX, gridSize), parabool(i).toScreenY(midY, gridSize)))
-            drawCircle(Color.Red, 5f, Offset(i.toScreenX(midX, gridSize), line(i).toScreenY(midY, gridSize)))
+        coordinates.forEachIndexed { index, xy ->
+            drawCircle(Color.Blue, 5f, Offset(xy.first.toScreenX(midX, gridSize), xy.second.toScreenY(midY, gridSize)))
+            if (index > 0) {
+                val prevXy = coordinates[index - 1]
+                drawLine(Color.Blue, Offset(prevXy.first.toScreenX(midX, gridSize), prevXy.second.toScreenY(midY, gridSize)), Offset(xy.first
+                    .toScreenX(midX, gridSize), xy.second.toScreenY(midY, gridSize)))
+            }
         }
     }
 }
@@ -69,10 +108,6 @@ private fun DrawScope.gridLines(
     }
 }
 
-private fun Int.toScreenX(midPoint: Float, gridSize: Float) = midPoint + (this * gridSize)
-private fun Float.toScreenX(midPoint: Float, gridSize: Float) = midPoint + (this * gridSize)
-private fun Int.toScreenY(midPoint: Float, gridSize: Float) = midPoint - (this * gridSize)
-private fun Float.toScreenY(midPoint: Float, gridSize: Float) = midPoint - (this * gridSize)
 private fun line(x: Int) = x
 private fun parabool(x: Int) = x * x
 
