@@ -26,8 +26,8 @@ fun App() {
             val midPoint = this.size.width / 2
 
             for (i in -10..10) {
-                val y = parabool(i)
-                drawCircle(Color.Blue, 5f, Offset(i.toScreenX(midPoint, gridSize), y.toScreenY(midPoint, gridSize)))
+                drawCircle(Color.Blue, 5f, Offset(i.toScreenX(midPoint, gridSize), parabool(i).toScreenY(midPoint, gridSize)))
+                drawCircle(Color.Red, 5f, Offset(i.toScreenX(midPoint, gridSize), line(i).toScreenY(midPoint, gridSize)))
             }
 
 
@@ -46,7 +46,7 @@ fun App() {
 
 private fun Int.toScreenX(midPoint: Float, gridSize: Float) = midPoint + (this * gridSize)
 private fun Int.toScreenY(midPoint: Float, gridSize: Float) = midPoint - (this * gridSize)
-private fun lineFunction(x: Int) = x
+private fun line(x: Int) = x
 private fun parabool(x: Int) = x * x
 
 fun main() = application {
