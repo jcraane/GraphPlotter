@@ -21,6 +21,8 @@ import androidx.compose.ui.window.application
 import kotlin.math.roundToInt
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.vector.VectorProperty
 import dev.jamiecraane.extensions.toScreenX
 import dev.jamiecraane.extensions.toScreenY
 
@@ -56,6 +58,8 @@ fun App() {
             }
 
             Spacer(modifier = Modifier.height(16.dp))
+
+
             GraphPaper(coordinates = coordinateList)
         }
     }
@@ -98,13 +102,23 @@ private fun DrawScope.gridLines(
     // vertical lines
     val verticalSpace = (midX / (halfNumberOfboxes)).roundToInt()
     for (lineX in 0..this.size.width.toInt() step verticalSpace) {
-        drawLine(gridColor, start = Offset(lineX.toFloat(), 0f), end = Offset(lineX.toFloat(), this.size.height))
+        val strokeWidth = if (lineX == midX.toInt()) {
+            4f
+        } else {
+            Stroke.HairlineWidth
+        }
+        drawLine(gridColor, start = Offset(lineX.toFloat(), 0f), end = Offset(lineX.toFloat(), this.size.height), strokeWidth)
     }
 
     // horizontal lines
     val horizontalSpace = ((midY / (halfNumberOfboxes))).roundToInt()
     for (lineY in 0..this.size.width.toInt() step horizontalSpace) {
-        drawLine(gridColor, start = Offset(0f, lineY.toFloat()), end = Offset(this.size.width, lineY.toFloat()))
+        val strokeWidth = if (lineY == midX.toInt()) {
+            4f
+        } else {
+            Stroke.HairlineWidth
+        }
+        drawLine(gridColor, start = Offset(0f, lineY.toFloat()), end = Offset(this.size.width, lineY.toFloat()), strokeWidth)
     }
 }
 
