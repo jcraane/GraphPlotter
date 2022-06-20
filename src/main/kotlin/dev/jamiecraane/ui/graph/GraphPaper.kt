@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.unit.dp
+import dev.jamiecraane.domain.Coordinates
 import dev.jamiecraane.extensions.toScreenX
 import dev.jamiecraane.extensions.toScreenY
 import org.jetbrains.skia.Font
@@ -23,7 +24,7 @@ import kotlin.math.roundToInt
 fun GraphPaper(
     modifier: Modifier = Modifier,
     numberOfBoxes: Int = 20,
-    coordinates: List<Pair<Int, Int>>,
+    coordinates: Coordinates,
 ) {
     println(coordinates)
     val gridColor = Color(0xFFBDBDBD)
@@ -36,13 +37,12 @@ fun GraphPaper(
         gridLines(midX, midY, numberOfBoxes, gridColor)
 
         coordinates.forEachIndexed { index, xy ->
-            drawCircle(Color.Blue, 5f, Offset(xy.first.toScreenX(midX, gridSize), xy.second.toScreenY(midY, gridSize)))
+            drawCircle(Color.Blue, 5f, Offset(xy.x.toScreenX(midX, gridSize), xy.y.toScreenY(midY, gridSize)))
             if (index > 0) {
-                val prevXy = coordinates[index - 1]
+                val prevXy = coordinates.coordinates[index - 1]
                 drawLine(
-                    Color.Blue, Offset(prevXy.first.toScreenX(midX, gridSize), prevXy.second.toScreenY(midY, gridSize)), Offset(
-                        xy.first
-                            .toScreenX(midX, gridSize), xy.second.toScreenY(midY, gridSize)
+                    Color.Blue, Offset(prevXy.x.toScreenX(midX, gridSize), prevXy.y.toScreenY(midY, gridSize)), Offset(
+                        xy.x.toScreenX(midX, gridSize), xy.y.toScreenY(midY, gridSize)
                     )
                 )
             }
