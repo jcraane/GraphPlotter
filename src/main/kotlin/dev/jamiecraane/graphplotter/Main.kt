@@ -21,10 +21,15 @@ import androidx.compose.ui.window.application
 import kotlin.math.roundToInt
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.NativePaint
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.vector.VectorProperty
 import dev.jamiecraane.extensions.toScreenX
 import dev.jamiecraane.extensions.toScreenY
+import org.jetbrains.skia.Font
+import org.jetbrains.skia.Typeface
 
 @Composable
 @Preview
@@ -119,6 +124,10 @@ private fun DrawScope.gridLines(
             Stroke.HairlineWidth
         }
         drawLine(gridColor, start = Offset(0f, lineY.toFloat()), end = Offset(this.size.width, lineY.toFloat()), strokeWidth)
+    }
+
+    this.drawIntoCanvas {
+        it.nativeCanvas.drawString("0,0", midX + 5, midY + 30, Font(Typeface.makeDefault(), 28f), NativePaint())
     }
 }
 
