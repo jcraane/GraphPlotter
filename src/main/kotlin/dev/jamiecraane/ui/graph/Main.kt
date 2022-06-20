@@ -42,12 +42,7 @@ fun App() {
                 Column {
                     functions.forEach { function ->
                         function.drawConfigPane {
-                            val coor = generateSequence(-5f) { it + 0.25f }
-                                .takeWhile { it <= 5f }
-                                .map { x -> Coordinate2D(x, function.evaluate(x)) }
-                                .toList()
-
-                            coordinateList = Coordinates(coor)
+                            coordinateList = Coordinates(generatePoints(function))
                         }
 
                         Spacer(modifier = Modifier.height(12.dp))
@@ -61,6 +56,14 @@ fun App() {
         }
     }
 }
+
+/**
+ * Generates a list of x (-5..5 (step 0.25) and y coordinates given the passed-in function.
+ */
+private fun generatePoints(function: MathematicalFunction) = generateSequence(-5f) { it + 0.25f }
+    .takeWhile { it <= 5f }
+    .map { x -> Coordinate2D(x, function.evaluate(x)) }
+    .toList()
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication, state = WindowState(size = DpSize(1000.dp, 800.dp))) {
