@@ -26,7 +26,7 @@ fun App() {
         var coordinateList: Coordinates by remember(coordinates) {
             mutableStateOf(Coordinates(coordinates))
         }
-        val functions = remember { listOf(Line(), Quadratic()) }
+        val functions = remember { listOf(Line(), Quadratic(), Pow3()) }
 
         Column(modifier = Modifier.padding(16.dp)) {
             Row() {
