@@ -26,6 +26,7 @@ fun App() {
         var coordinateList: Coordinates by remember(coordinates) {
             mutableStateOf(Coordinates(coordinates))
         }
+        val functions = remember { listOf(Line(), Quadratic()) }
 
         Column(modifier = Modifier.padding(16.dp)) {
             Row() {
@@ -38,36 +39,25 @@ fun App() {
             Spacer(modifier = Modifier.height(16.dp))
 
             Row() {
-                GraphPaper(coordinates = coordinateList)
+                Column {
+                    functions.forEach { function ->
+                        function.drawConfigPane {
+                            val coor = generateSequence(-5f) { it + 0.25f }
+                                .takeWhile { it <= 5f }
+                                .map { x -> Coordinate2D(x, function.evaluate(x)) }
+                                .toList()
+
+                            coordinateList = Coordinates(coor)
+                        }
+
+                        Spacer(modifier = Modifier.height(12.dp))
+                    }
+                }
 
                 Spacer(modifier = Modifier.width(12.dp))
+                GraphPaper(coordinates = coordinateList)
 
-                val line = Line()
-
-                line.drawConfigPane {
-                    println("CONFIG CHANGED")
-                    val coor = generateSequence(-5f) { it + 0.25f }
-                        .takeWhile { it <= 5f }
-                        .map { x -> Coordinate2D(x, line.evaluate(x)) }
-                        .toList()
-
-                    coordinateList = Coordinates(coor)
-                }
             }
-//            GraphPaper(coordinates = coordinateList)
-            /*val coor = generateSequence(-5f) { it + 0.25f }
-                .takeWhile { it <= 5f }
-                .map { x -> Coordinate2D(x, line(x)) }
-                .toList()*/
-
-           /* val coor = generateSequence(-5f) { it + 0.25f }
-                .takeWhile { it <= 5f }
-                .map { x -> Coordinate2D(x, quadratic(x = x, a = 0.5f, b = 0f, c = -5f)) }
-                .toList()*/
-
-//            GraphPaper(coordinates = coordinateList)
-
-//            GraphPaper(coordinates = Coordinates(coor), drawPoints = false)
         }
     }
 }
