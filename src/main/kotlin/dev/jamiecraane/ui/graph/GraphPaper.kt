@@ -20,11 +20,15 @@ import org.jetbrains.skia.Font
 import org.jetbrains.skia.Typeface
 import kotlin.math.roundToInt
 
+/**
+ * @param drawPoints Draw dots in the exact coordinates.
+ */
 @Composable
 fun GraphPaper(
     modifier: Modifier = Modifier,
     numberOfBoxes: Int = 20,
     coordinates: Coordinates,
+    drawPoints: Boolean = true,
 ) {
     val gridColor = Color(0xFFBDBDBD)
 
@@ -36,7 +40,10 @@ fun GraphPaper(
         gridLines(midX, midY, numberOfBoxes, gridColor)
 
         coordinates.forEachIndexed { index, xy ->
-            drawCircle(Color.Blue, 5f, Offset(xy.x.toScreenX(midX, gridSize), xy.y.toScreenY(midY, gridSize)))
+            if (drawPoints) {
+                drawCircle(Color.Blue, 5f, Offset(xy.x.toScreenX(midX, gridSize), xy.y.toScreenY(midY, gridSize)))
+            }
+
             if (index > 0) {
                 val prevXy = coordinates.coordinates[index - 1]
                 drawLine(
@@ -94,11 +101,8 @@ private fun DrawScope.gridLines(
     }
 }
 
-private fun getStrokeWidth(isMiddle: Boolean): Float {
-    val strokeWidth = if (isMiddle) {
-        4f
-    } else {
-        Stroke.HairlineWidth
-    }
-    return strokeWidth
+private fun getStrokeWidth(isMiddle: Boolean): Float = if (isMiddle) {
+    4f
+} else {
+    Stroke.HairlineWidth
 }
