@@ -16,6 +16,10 @@ import androidx.compose.ui.window.application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import dev.jamiecraane.domain.*
+import dev.jamiecraane.domain.mathfunctions.Line
+import dev.jamiecraane.domain.mathfunctions.MathematicalFunction
+import dev.jamiecraane.domain.mathfunctions.Pow3
+import dev.jamiecraane.domain.mathfunctions.Quadratic
 import dev.jamiecraane.ui.graph.GraphPaper
 
 @Composable

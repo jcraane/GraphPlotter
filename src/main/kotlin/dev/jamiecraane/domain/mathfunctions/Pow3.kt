@@ -1,8 +1,7 @@
-package dev.jamiecraane.domain
+package dev.jamiecraane.domain.mathfunctions
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Checkbox
-import androidx.compose.material.Slider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -12,6 +11,8 @@ import androidx.compose.ui.unit.dp
 import kotlin.math.pow
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import dev.jamiecraane.domain.FloatInput
+import dev.jamiecraane.domain.SliderInput
 
 class Pow3 : MathematicalFunction {
     private var a: Float = 1f

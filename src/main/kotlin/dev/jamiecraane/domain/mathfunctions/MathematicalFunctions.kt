@@ -1,4 +1,4 @@
-package dev.jamiecraane.domain
+package dev.jamiecraane.domain.mathfunctions
 
 import androidx.compose.runtime.Composable
 import kotlin.math.pow
