@@ -49,7 +49,6 @@ class Line() : MathematicalFunction {
                         0F
                     }
 
-                    println("Changed")
                     this@Line.a = converted
                     propertiesChanged()
                 })
