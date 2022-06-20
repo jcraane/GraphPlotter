@@ -23,7 +23,7 @@ import dev.jamiecraane.ui.graph.GraphPaper
 fun App() {
     MaterialTheme {
         var coordinates by remember { mutableStateOf("-2,-2;0,2;2,-2;-2,-2") }
-        val coordinateList: Coordinates by remember(coordinates) {
+        var coordinateList: Coordinates by remember(coordinates) {
             mutableStateOf(Coordinates(coordinates))
         }
 
@@ -43,7 +43,16 @@ fun App() {
                 Spacer(modifier = Modifier.width(12.dp))
 
                 val line = Line()
-                line.drawConfigPane()
+
+                line.drawConfigPane {
+                    println("CONFIG CHANGED")
+                    val coor = generateSequence(-5f) { it + 0.25f }
+                        .takeWhile { it <= 5f }
+                        .map { x -> Coordinate2D(x, line.evaluate(x)) }
+                        .toList()
+
+                    coordinateList = Coordinates(coor)
+                }
             }
 //            GraphPaper(coordinates = coordinateList)
             /*val coor = generateSequence(-5f) { it + 0.25f }
