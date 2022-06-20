@@ -60,17 +60,11 @@ private fun DrawScope.gridLines(
 
     // vertical lines
     val verticalSpace = (midX / (halfNumberOfboxes)).roundToInt()
-    var indexX = 0
-    for (lineX in 0..this.size.width.toInt() step verticalSpace) {
+    for ((indexX, lineX) in (0..this.size.width.toInt() step verticalSpace).withIndex()) {
         val isMiddle = lineX == midX.toInt()
-        val strokeWidth = if (isMiddle) {
-            4f
-        } else {
-            Stroke.HairlineWidth
-        }
+        val strokeWidth = getStrokeWidth(isMiddle)
 
         drawLine(gridColor, start = Offset(lineX.toFloat(), 0f), end = Offset(lineX.toFloat(), this.size.height), strokeWidth)
-
 
         this.drawIntoCanvas {
             it.nativeCanvas.drawString(
@@ -79,19 +73,13 @@ private fun DrawScope.gridLines(
             )
         }
 
-        indexX++
     }
 
     // horizontal lines
-    var indexY = 0
     val horizontalSpace = ((midY / (halfNumberOfboxes))).roundToInt()
-    for (lineY in 0..this.size.width.toInt() step horizontalSpace) {
+    for ((indexY, lineY) in (0..this.size.width.toInt() step horizontalSpace).withIndex()) {
         val isMiddle = lineY == midX.toInt()
-        val strokeWidth = if (isMiddle) {
-            4f
-        } else {
-            Stroke.HairlineWidth
-        }
+        val strokeWidth = getStrokeWidth(isMiddle)
         drawLine(gridColor, start = Offset(0f, lineY.toFloat()), end = Offset(this.size.width, lineY.toFloat()), strokeWidth)
 
         this.drawIntoCanvas {
@@ -103,6 +91,14 @@ private fun DrawScope.gridLines(
             }
         }
 
-        indexY++
     }
+}
+
+private fun getStrokeWidth(isMiddle: Boolean): Float {
+    val strokeWidth = if (isMiddle) {
+        4f
+    } else {
+        Stroke.HairlineWidth
+    }
+    return strokeWidth
 }
