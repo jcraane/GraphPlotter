@@ -15,10 +15,7 @@ import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import dev.jamiecraane.domain.Coordinate2D
-import dev.jamiecraane.domain.Coordinates
-import dev.jamiecraane.domain.line
-import dev.jamiecraane.domain.quadratic
+import dev.jamiecraane.domain.*
 import dev.jamiecraane.ui.graph.GraphPaper
 
 @Composable
@@ -30,7 +27,7 @@ fun App() {
             mutableStateOf(Coordinates(coordinates))
         }
 
-        Column() {
+        Column(modifier = Modifier.padding(16.dp)) {
             Row() {
                 Text(text = "Coordinaten: x,y;x,y")
                 TextField(value = coordinates, onValueChange = {
@@ -40,6 +37,14 @@ fun App() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            Row() {
+                GraphPaper(coordinates = coordinateList)
+
+                Spacer(modifier = Modifier.width(12.dp))
+
+                val line = Line()
+                line.drawConfigPane()
+            }
 //            GraphPaper(coordinates = coordinateList)
             /*val coor = generateSequence(-5f) { it + 0.25f }
                 .takeWhile { it <= 5f }
@@ -51,14 +56,15 @@ fun App() {
                 .map { x -> Coordinate2D(x, quadratic(x = x, a = 0.5f, b = 0f, c = -5f)) }
                 .toList()*/
 
-            GraphPaper(coordinates = coordinateList)
+//            GraphPaper(coordinates = coordinateList)
+
 //            GraphPaper(coordinates = Coordinates(coor), drawPoints = false)
         }
     }
 }
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication, state = WindowState(size = DpSize(800.dp, 800.dp))) {
+    Window(onCloseRequest = ::exitApplication, state = WindowState(size = DpSize(1000.dp, 800.dp))) {
         App()
     }
 }
