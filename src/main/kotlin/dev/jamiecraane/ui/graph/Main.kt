@@ -37,7 +37,6 @@ fun App() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-
             GraphPaper(coordinates = coordinateList)
         }
     }

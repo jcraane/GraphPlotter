@@ -26,7 +26,6 @@ fun GraphPaper(
     numberOfBoxes: Int = 20,
     coordinates: Coordinates,
 ) {
-    println(coordinates)
     val gridColor = Color(0xFFBDBDBD)
 
     Canvas(modifier = modifier.size(600.dp).background(Color(0xFFFFF4D5))) {
