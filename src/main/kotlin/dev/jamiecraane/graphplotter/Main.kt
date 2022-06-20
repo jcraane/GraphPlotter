@@ -25,7 +25,6 @@ import androidx.compose.ui.graphics.NativePaint
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.graphics.vector.VectorProperty
 import dev.jamiecraane.extensions.toScreenX
 import dev.jamiecraane.extensions.toScreenY
 import org.jetbrains.skia.Font
@@ -74,25 +73,28 @@ fun App() {
 fun GraphPaper(
     modifier: Modifier = Modifier,
     numberOfBoxes: Int = 20,
-    coordinates: List<Pair<Int, Int>>
+    coordinates: List<Pair<Int, Int>>,
 ) {
     println(coordinates)
     val gridColor = Color(0xFFBDBDBD)
-    val halfNumberOfboxes = numberOfBoxes / 2
 
     Canvas(modifier = modifier.size(600.dp).background(Color(0xFFFFF4D5))) {
         val gridSize = this.size.width / numberOfBoxes
         val midX = this.size.width / 2
         val midY = this.size.height / 2
 
-        gridLines(midX, midY, halfNumberOfboxes, gridColor)
+        gridLines(midX, midY, numberOfBoxes, gridColor)
 
         coordinates.forEachIndexed { index, xy ->
             drawCircle(Color.Blue, 5f, Offset(xy.first.toScreenX(midX, gridSize), xy.second.toScreenY(midY, gridSize)))
             if (index > 0) {
                 val prevXy = coordinates[index - 1]
-                drawLine(Color.Blue, Offset(prevXy.first.toScreenX(midX, gridSize), prevXy.second.toScreenY(midY, gridSize)), Offset(xy.first
-                    .toScreenX(midX, gridSize), xy.second.toScreenY(midY, gridSize)))
+                drawLine(
+                    Color.Blue, Offset(prevXy.first.toScreenX(midX, gridSize), prevXy.second.toScreenY(midY, gridSize)), Offset(
+                        xy.first
+                            .toScreenX(midX, gridSize), xy.second.toScreenY(midY, gridSize)
+                    )
+                )
             }
         }
     }
@@ -101,33 +103,57 @@ fun GraphPaper(
 private fun DrawScope.gridLines(
     midX: Float,
     midY: Float,
-    halfNumberOfboxes: Int,
+    numberOfBoxes: Int,
     gridColor: Color,
 ) {
+    val halfNumberOfboxes = numberOfBoxes / 2
+    val labels = (0..numberOfBoxes).toList().map { it - halfNumberOfboxes }
     // vertical lines
     val verticalSpace = (midX / (halfNumberOfboxes)).roundToInt()
+    var indexX = 0
     for (lineX in 0..this.size.width.toInt() step verticalSpace) {
-        val strokeWidth = if (lineX == midX.toInt()) {
+        val isMiddle = lineX == midX.toInt()
+        val strokeWidth = if (isMiddle) {
             4f
         } else {
             Stroke.HairlineWidth
         }
+
         drawLine(gridColor, start = Offset(lineX.toFloat(), 0f), end = Offset(lineX.toFloat(), this.size.height), strokeWidth)
+
+
+        this.drawIntoCanvas {
+            it.nativeCanvas.drawString(
+                "${labels[indexX]},0", lineX.toFloat() - 18, midY + 30, Font(Typeface.makeDefault(), 24f),
+                NativePaint()
+            )
+        }
+
+        indexX++
     }
 
     // horizontal lines
+    var indexY = 0
     val horizontalSpace = ((midY / (halfNumberOfboxes))).roundToInt()
     for (lineY in 0..this.size.width.toInt() step horizontalSpace) {
-        val strokeWidth = if (lineY == midX.toInt()) {
+        val isMiddle = lineY == midX.toInt()
+        val strokeWidth = if (isMiddle) {
             4f
         } else {
             Stroke.HairlineWidth
         }
         drawLine(gridColor, start = Offset(0f, lineY.toFloat()), end = Offset(this.size.width, lineY.toFloat()), strokeWidth)
-    }
 
-    this.drawIntoCanvas {
-        it.nativeCanvas.drawString("0,0", midX + 5, midY + 30, Font(Typeface.makeDefault(), 28f), NativePaint())
+        this.drawIntoCanvas {
+            if (isMiddle.not()) {
+                it.nativeCanvas.drawString(
+                    "0,${labels[indexY]}", midX - 18, lineY.toFloat() + 22, Font(Typeface.makeDefault(), 24f),
+                    NativePaint()
+                )
+            }
+        }
+
+        indexY++
     }
 }
 
