@@ -13,7 +13,7 @@ import kotlin.math.pow
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 
-class Quadratic : MathematicalFunction {
+class Quadratic() : MathematicalFunction {
     private var a: Float = 1f
     private var b: Float = 0f
     private var c: Float = 0f
@@ -40,10 +40,10 @@ class Quadratic : MathematicalFunction {
                 Text(text = "a: ")
 
                 if (useSlider) {
-                    Slider(modifier = Modifier.width(200.dp), value = (a + 10) / 20, steps = 20, onValueChange = {
-                        a = (it * 20) - 10
+                    SliderInput(a) {
+                        a = it
                         propertiesChanged()
-                    })
+                    }
                 } else {
                     FloatInput(a) {
                         this@Quadratic.a = it
@@ -56,10 +56,10 @@ class Quadratic : MathematicalFunction {
                 Text(text = "b: ")
 
                 if (useSlider) {
-                    Slider(modifier = Modifier.width(200.dp), value = (b + 10) / 20, steps = 20, onValueChange = {
-                        b = (it * 20) - 10
+                    SliderInput(b) {
+                        b = it
                         propertiesChanged()
-                    })
+                    }
                 } else {
                     FloatInput(b) {
                         this@Quadratic.b = it
@@ -72,10 +72,10 @@ class Quadratic : MathematicalFunction {
                 Text(text = "c: ")
 
                 if (useSlider) {
-                    Slider(modifier = Modifier.width(200.dp), value = (c + 10) / 20, steps = 20, onValueChange = {
-                        c = (it * 20) - 10
+                    SliderInput(c) {
+                        c = it
                         propertiesChanged()
-                    })
+                    }
                 } else {
                     FloatInput(c) {
                         this@Quadratic.c = it
@@ -85,4 +85,6 @@ class Quadratic : MathematicalFunction {
             }
         }
     }
+
+
 }

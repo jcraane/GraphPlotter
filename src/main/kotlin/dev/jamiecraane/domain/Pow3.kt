@@ -38,10 +38,10 @@ class Pow3 : MathematicalFunction {
                 Text(text = "a: ")
 
                 if (useSlider) {
-                    Slider(modifier = Modifier.width(200.dp), value = (a + 10) / 20, steps = 20, onValueChange = {
-                        a = (it * 20) - 10
+                    SliderInput(a) {
+                        a = it
                         propertiesChanged()
-                    })
+                    }
                 } else {
                     FloatInput(a) {
                         this@Pow3.a = it
