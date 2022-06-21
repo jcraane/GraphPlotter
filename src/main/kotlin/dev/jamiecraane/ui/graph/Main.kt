@@ -55,7 +55,6 @@ fun App() {
 
                 Spacer(modifier = Modifier.width(12.dp))
                 GraphPaper(coordinates = coordinateList)
-
             }
         }
     }

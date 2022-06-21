@@ -24,7 +24,6 @@ class Line : MathematicalFunction {
             Row() {
                 Text(text = "a: ")
                 FloatInput(a) {
-                    println("CHANGED")
                     this@Line.a = it
                     propertiesChanged()
                 }

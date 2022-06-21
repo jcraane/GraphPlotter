@@ -2,6 +2,7 @@ package dev.jamiecraane.domain.mathfunctions
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Checkbox
+import androidx.compose.material.Slider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
