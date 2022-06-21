@@ -1,17 +1,13 @@
 package dev.jamiecraane.domain.mathfunctions
 
 import androidx.compose.runtime.Composable
+import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-class Cosine : MathematicalFunction {
-    override fun evaluate(x: Double): Double = cos(x)
+class Cosine : BaseSineCos() {
+    override fun evaluate(x: Double): Double = amplitude * cos(((2 * PI) / period) * (x + phaseShift)) + verticalShift
 
     override val label: String
         get() = "Cosine"
-
-    @Composable
-    override fun drawConfigPane(propertiesChanged: () -> Unit) {
-        // Nothing to configure
-    }
 }
