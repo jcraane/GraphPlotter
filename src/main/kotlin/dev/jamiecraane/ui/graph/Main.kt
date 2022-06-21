@@ -31,7 +31,7 @@ fun App() {
         }
         var menuExpanded by remember { mutableStateOf(false) }
         var selectedFunctionIndex by remember { mutableStateOf(0) }
-        val functions = remember { listOf(Line(), Quadratic(), Pow3(), SquareRoot(), Reciprocal()) }
+        val functions = remember { listOf(Line(), Quadratic(), Pow3(), SquareRoot(), Reciprocal(), Sine()) }
 
         Column(modifier = Modifier.padding(16.dp)) {
             Row() {
