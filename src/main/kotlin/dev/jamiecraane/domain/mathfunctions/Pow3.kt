@@ -19,6 +19,9 @@ class Pow3 : MathematicalFunction {
 
     override fun evaluate(x: Float): Float = (x).pow(3) - (a * x)
 
+    override val label: String
+        get() = "Cube"
+
     @Composable
     override fun drawConfigPane(propertiesChanged: () -> Unit) {
         var useSlider by remember { mutableStateOf(false) }

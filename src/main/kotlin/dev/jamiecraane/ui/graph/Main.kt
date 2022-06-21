@@ -1,9 +1,9 @@
 // Copyright 2000-2021 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,6 +15,8 @@ import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import dev.jamiecraane.domain.*
 import dev.jamiecraane.domain.mathfunctions.Line
 import dev.jamiecraane.domain.mathfunctions.MathematicalFunction
@@ -30,6 +32,8 @@ fun App() {
         var coordinateList: Coordinates by remember(coordinates) {
             mutableStateOf(Coordinates(coordinates))
         }
+        var menuExpanded by remember { mutableStateOf(false) }
+        var selectedFunctionIndex by remember { mutableStateOf(0) }
         val functions = remember { listOf(Line(), Quadratic(), Pow3()) }
 
         Column(modifier = Modifier.padding(16.dp)) {
@@ -44,12 +48,38 @@ fun App() {
 
             Row() {
                 Column {
-                    functions.forEach { function ->
-                        function.drawConfigPane {
-                            coordinateList = Coordinates(generatePoints(function))
-                        }
+                    Box(modifier = Modifier.width(240.dp).wrapContentSize(Alignment.TopStart)) {
+                        Text(
+                            text = functions[selectedFunctionIndex].label,
+                            modifier = Modifier.fillMaxWidth()
+                                .clickable(onClick = {
+                                    menuExpanded = true
+                                })
+                                .background(
+                                    Color.Gray
+                                )
+                                .padding(8.dp)
+                        )
 
-                        Spacer(modifier = Modifier.height(12.dp))
+                        DropdownMenu(
+                            expanded = menuExpanded,
+                            onDismissRequest = { menuExpanded = false }) {
+                            functions.forEachIndexed { index, function ->
+                                DropdownMenuItem(
+                                    onClick = {
+                                        selectedFunctionIndex = index
+                                        menuExpanded = false
+                                    }
+                                ) {
+                                    Text(text = function.label)
+                                }
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+                    functions[selectedFunctionIndex].drawConfigPane {
+                        coordinateList = Coordinates(generatePoints(functions[selectedFunctionIndex]))
                     }
                 }
 

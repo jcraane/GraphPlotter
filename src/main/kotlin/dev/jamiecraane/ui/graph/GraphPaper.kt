@@ -75,7 +75,7 @@ private fun DrawScope.gridLines(
 
         this.drawIntoCanvas {
             it.nativeCanvas.drawString(
-                "${labels[indexX]},0", lineX.toFloat() - 18, midY + 30, Font(Typeface.makeDefault(), 24f),
+                "${labels[indexX]}", lineX.toFloat() + 6, midY + 30, Font(Typeface.makeDefault(), 24f),
                 NativePaint()
             )
         }
@@ -92,7 +92,7 @@ private fun DrawScope.gridLines(
         this.drawIntoCanvas {
             if (isMiddle.not()) {
                 it.nativeCanvas.drawString(
-                    "0,${labels[indexY]}", midX - 18, lineY.toFloat() + 22, Font(Typeface.makeDefault(), 24f),
+                    "${labels[indexY]}", midX + 8, lineY.toFloat() + 22, Font(Typeface.makeDefault(), 24f),
                     NativePaint()
                 )
             }

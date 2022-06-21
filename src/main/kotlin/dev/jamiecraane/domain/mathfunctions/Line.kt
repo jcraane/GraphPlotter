@@ -13,6 +13,8 @@ import dev.jamiecraane.domain.FloatInput
 class Line : MathematicalFunction {
     private var a: Float = 0f
     override fun evaluate(x: Float) = x + a
+    override val label: String
+        get() = "Linear"
 
     @Composable
     override fun drawConfigPane(propertiesChanged: () -> Unit) {

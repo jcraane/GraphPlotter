@@ -22,6 +22,9 @@ class Quadratic() : MathematicalFunction {
 
     override fun evaluate(x: Float): Float = (a * x).pow(2f) + (b * x) + c
 
+    override val label: String
+        get() = "Quadratic"
+
     @Composable
     override fun drawConfigPane(propertiesChanged: () -> Unit) {
         var useSlider by remember { mutableStateOf(false) }
