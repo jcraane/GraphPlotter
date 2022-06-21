@@ -5,7 +5,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 
 class Reciprocal : MathematicalFunction {
-    override fun evaluate(x: Float): Float = 1/x
+    override fun evaluate(x: Double): Double = 1/x
 
     override val label: String
         get() = "Reciprocal"

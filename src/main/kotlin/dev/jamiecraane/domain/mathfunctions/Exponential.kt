@@ -1,15 +1,14 @@
 package dev.jamiecraane.domain.mathfunctions
 
-import androidx.compose.material.Button
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import kotlin.math.sqrt
+import kotlin.math.E
+import kotlin.math.pow
 
-class SquareRoot : MathematicalFunction {
-    override fun evaluate(x: Double): Double = sqrt(x)
+class Exponential : MathematicalFunction {
+    override fun evaluate(x: Double): Double = E.pow(x)
 
     override val label: String
-        get() = "Square Root"
+        get() = "Exponential"
 
     @Composable
     override fun drawConfigPane(propertiesChanged: () -> Unit) {

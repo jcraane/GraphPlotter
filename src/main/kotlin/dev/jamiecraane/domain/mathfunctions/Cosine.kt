@@ -1,15 +1,14 @@
 package dev.jamiecraane.domain.mathfunctions
 
-import androidx.compose.material.Button
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import kotlin.math.sqrt
+import kotlin.math.cos
+import kotlin.math.sin
 
-class SquareRoot : MathematicalFunction {
-    override fun evaluate(x: Double): Double = sqrt(x)
+class Cosine : MathematicalFunction {
+    override fun evaluate(x: Double): Double = cos(x)
 
     override val label: String
-        get() = "Square Root"
+        get() = "Cosine"
 
     @Composable
     override fun drawConfigPane(propertiesChanged: () -> Unit) {

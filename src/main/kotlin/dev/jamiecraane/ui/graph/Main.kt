@@ -31,7 +31,11 @@ fun App() {
         }
         var menuExpanded by remember { mutableStateOf(false) }
         var selectedFunctionIndex by remember { mutableStateOf(0) }
-        val functions = remember { listOf(Line(), Quadratic(), Pow3(), SquareRoot(), Reciprocal(), Sine()) }
+        val functions = remember {
+            listOf(
+                Line(), Quadratic(), Pow3(), SquareRoot(), Reciprocal(), Sine(), Cosine(), Tangent(), Logarithmic(), Exponential(),
+            )
+        }
 
         Column(modifier = Modifier.padding(16.dp)) {
             Row() {
@@ -82,7 +86,7 @@ fun App() {
                 }
 
                 Spacer(modifier = Modifier.width(12.dp))
-                GraphPaper(coordinates = coordinateList)
+                GraphPaper(coordinates = coordinateList, drawPoints = false)
             }
         }
     }
@@ -91,8 +95,8 @@ fun App() {
 /**
  * Generates a list of x (-5..5 (step 0.25) and y coordinates given the passed-in function.
  */
-private fun generatePoints(function: MathematicalFunction) = generateSequence(-10f) { it + 0.25f }
-    .takeWhile { it <= 10f }
+private fun generatePoints(function: MathematicalFunction) = generateSequence(-10.0) { it + 0.1 }
+    .takeWhile { it <= 10.0 }
     .map { x -> Coordinate2D(x, function.evaluate(x)) }
     .toList()
 

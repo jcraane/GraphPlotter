@@ -17,7 +17,7 @@ import dev.jamiecraane.domain.SliderInput
 class Pow3 : MathematicalFunction {
     private var a: Float = 1f
 
-    override fun evaluate(x: Float): Float = (x).pow(3) - (a * x)
+    override fun evaluate(x: Double): Double = (x).pow(3) - (a * x)
 
     override val label: String
         get() = "Cube"

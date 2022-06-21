@@ -12,7 +12,7 @@ import dev.jamiecraane.domain.FloatInput
 
 class Line : MathematicalFunction {
     private var a: Float = 0f
-    override fun evaluate(x: Float) = x + a
+    override fun evaluate(x: Double) = x + a
     override val label: String
         get() = "Linear"
 

@@ -20,7 +20,7 @@ class Quadratic() : MathematicalFunction {
     private var b: Float = 0f
     private var c: Float = 0f
 
-    override fun evaluate(x: Float): Float = (a * x).pow(2f) + (b * x) + c
+    override fun evaluate(x: Double): Double = (a * x).pow(2.0) + (b * x) + c
 
     override val label: String
         get() = "Quadratic"

@@ -47,9 +47,8 @@ fun GraphPaper(
             if (index > 0) {
                 val prevXy = coordinates.coordinates[index - 1]
                 drawLine(
-                    Color.Blue, Offset(prevXy.x.toScreenX(midX, gridSize), prevXy.y.toScreenY(midY, gridSize)), Offset(
-                        xy.x.toScreenX(midX, gridSize), xy.y.toScreenY(midY, gridSize)
-                    )
+                    color = Color.Blue, start = Offset(prevXy.x.toScreenX(midX, gridSize), prevXy.y.toScreenY(midY, gridSize)), end = Offset(
+                        xy.x.toScreenX(midX, gridSize), xy.y.toScreenY(midY, gridSize)), strokeWidth = 2f
                 )
             }
         }

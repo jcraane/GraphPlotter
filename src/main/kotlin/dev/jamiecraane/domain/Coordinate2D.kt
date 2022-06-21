@@ -3,7 +3,7 @@ package dev.jamiecraane.domain
 /**
  * Represents a logica 2D coordinate in a grid independent.
  */
-data class Coordinate2D(val x: Float, val y: Float)
+data class Coordinate2D(val x: Double, val y: Double)
 
 data class Coordinates(val coordinates: List<Coordinate2D>) : List<Coordinate2D> by coordinates {
     companion object {
@@ -19,7 +19,7 @@ data class Coordinates(val coordinates: List<Coordinate2D>) : List<Coordinate2D>
                         .map { coordinate ->
                             val xy = coordinate.split(",")
                             if (xy.size == 2) {
-                                coordinateList.add(Coordinate2D(xy.first().toFloat(), xy.last().toFloat()))
+                                coordinateList.add(Coordinate2D(xy.first().toDouble(), xy.last().toDouble()))
                             }
                         }
                 } catch (e: Exception) {
