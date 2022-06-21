@@ -14,7 +14,7 @@ import androidx.compose.runtime.setValue
 import dev.jamiecraane.domain.FloatInput
 import dev.jamiecraane.domain.SliderInput
 
-class Pow3 : MathematicalFunction {
+class Cube : MathematicalFunction {
     private var a: Float = 1f
 
     override fun evaluate(x: Double): Double = (x).pow(3) - (a * x)
@@ -27,7 +27,7 @@ class Pow3 : MathematicalFunction {
         var useSlider by remember { mutableStateOf(false) }
 
         Column() {
-            Text(text = "Quadratic (y = (x)^3 - (a*x)")
+            Text(text = "$label (y = (x)^3 - (a*x)")
 
             Row {
                 Text(text = "Use slider: ")
@@ -48,7 +48,7 @@ class Pow3 : MathematicalFunction {
                     }
                 } else {
                     FloatInput(a) {
-                        this@Pow3.a = it
+                        this@Cube.a = it
                         propertiesChanged()
                     }
                 }

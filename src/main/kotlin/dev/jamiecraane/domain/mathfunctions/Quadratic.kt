@@ -30,7 +30,7 @@ class Quadratic() : MathematicalFunction {
         var useSlider by remember { mutableStateOf(false) }
 
         Column() {
-            Text(text = "Quadratic (y = (a*x)^2 + b*x + c)")
+            Text(text = "$label (y = (a*x)^2 + b*x + c)")
 
             Row {
                 Text(text = "Use slider: ")

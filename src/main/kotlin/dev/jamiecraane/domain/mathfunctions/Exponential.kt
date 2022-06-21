@@ -1,5 +1,6 @@
 package dev.jamiecraane.domain.mathfunctions
 
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import kotlin.math.E
 import kotlin.math.pow
@@ -12,6 +13,6 @@ class Exponential : MathematicalFunction {
 
     @Composable
     override fun drawConfigPane(propertiesChanged: () -> Unit) {
-        // Nothing to configure
+        Text(text = "Exponential E^x")
     }
 }

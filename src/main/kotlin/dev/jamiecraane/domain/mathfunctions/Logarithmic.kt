@@ -1,5 +1,6 @@
 package dev.jamiecraane.domain.mathfunctions
 
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import kotlin.math.ln
 
@@ -11,6 +12,6 @@ class Logarithmic : MathematicalFunction {
 
     @Composable
     override fun drawConfigPane(propertiesChanged: () -> Unit) {
-        // Nothing to configure
+        Text(text = "Logarithmic log(x)")
     }
 }

@@ -1,5 +1,6 @@
 package dev.jamiecraane.domain.mathfunctions
 
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import kotlin.math.cos
 import kotlin.math.sin
@@ -13,6 +14,6 @@ class Tangent : MathematicalFunction {
 
     @Composable
     override fun drawConfigPane(propertiesChanged: () -> Unit) {
-        // Nothing to configure
+        Text(text = "$label tan(x)")
     }
 }

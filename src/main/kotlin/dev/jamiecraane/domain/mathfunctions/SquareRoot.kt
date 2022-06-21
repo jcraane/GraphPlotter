@@ -13,6 +13,6 @@ class SquareRoot : MathematicalFunction {
 
     @Composable
     override fun drawConfigPane(propertiesChanged: () -> Unit) {
-        // Nothing to configure
+        Text(text = "$label √x")
     }
 }

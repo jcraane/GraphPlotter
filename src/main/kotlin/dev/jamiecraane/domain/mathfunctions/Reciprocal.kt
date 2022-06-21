@@ -12,6 +12,6 @@ class Reciprocal : MathematicalFunction {
 
     @Composable
     override fun drawConfigPane(propertiesChanged: () -> Unit) {
-        // Nothing to configure
+        Text(text = "$label 1/x")
     }
 }

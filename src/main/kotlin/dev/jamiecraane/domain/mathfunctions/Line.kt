@@ -19,7 +19,7 @@ class Line : MathematicalFunction {
     @Composable
     override fun drawConfigPane(propertiesChanged: () -> Unit) {
         Column() {
-            Text(text = "Line (y = a + x)")
+            Text(text = "$label (y = a + x)")
 
             Spacer(modifier = Modifier.size(4.dp))
 
