@@ -18,10 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import dev.jamiecraane.domain.*
-import dev.jamiecraane.domain.mathfunctions.Line
-import dev.jamiecraane.domain.mathfunctions.MathematicalFunction
-import dev.jamiecraane.domain.mathfunctions.Pow3
-import dev.jamiecraane.domain.mathfunctions.Quadratic
+import dev.jamiecraane.domain.mathfunctions.*
 import dev.jamiecraane.ui.graph.GraphPaper
 
 @Composable
@@ -34,7 +31,7 @@ fun App() {
         }
         var menuExpanded by remember { mutableStateOf(false) }
         var selectedFunctionIndex by remember { mutableStateOf(0) }
-        val functions = remember { listOf(Line(), Quadratic(), Pow3()) }
+        val functions = remember { listOf(Line(), Quadratic(), Pow3(), SquareRoot(), Reciprocal()) }
 
         Column(modifier = Modifier.padding(16.dp)) {
             Row() {
@@ -69,6 +66,7 @@ fun App() {
                                     onClick = {
                                         selectedFunctionIndex = index
                                         menuExpanded = false
+                                        coordinateList = Coordinates(generatePoints(functions[selectedFunctionIndex]))
                                     }
                                 ) {
                                     Text(text = function.label)
@@ -93,8 +91,8 @@ fun App() {
 /**
  * Generates a list of x (-5..5 (step 0.25) and y coordinates given the passed-in function.
  */
-private fun generatePoints(function: MathematicalFunction) = generateSequence(-5f) { it + 0.25f }
-    .takeWhile { it <= 5f }
+private fun generatePoints(function: MathematicalFunction) = generateSequence(-10f) { it + 0.25f }
+    .takeWhile { it <= 10f }
     .map { x -> Coordinate2D(x, function.evaluate(x)) }
     .toList()
 
