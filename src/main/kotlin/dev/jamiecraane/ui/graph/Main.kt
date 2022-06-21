@@ -34,6 +34,7 @@ fun App() {
         val functions = remember {
             listOf(
                 Line(), Quadratic(), Pow3(), SquareRoot(), Reciprocal(), Sine(), Cosine(), Tangent(), Logarithmic(), Exponential(),
+                Absolute()
             )
         }
 
