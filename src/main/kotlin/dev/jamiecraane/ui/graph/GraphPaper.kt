@@ -62,7 +62,8 @@ private fun DrawScope.gridLines(
     gridColor: Color,
 ) {
     val halfNumberOfboxes = numberOfBoxes / 2
-    val labels = (0..numberOfBoxes).toList().map { it - halfNumberOfboxes }
+    val labelsX = (0..numberOfBoxes).toList().map { it - halfNumberOfboxes }
+    val labelsY = labelsX.reversed()
 
     // vertical lines
     val verticalSpace = (midX / (halfNumberOfboxes)).roundToInt()
@@ -74,7 +75,7 @@ private fun DrawScope.gridLines(
 
         this.drawIntoCanvas {
             it.nativeCanvas.drawString(
-                "${labels[indexX]}", lineX.toFloat() + 6, midY + 30, Font(Typeface.makeDefault(), 24f),
+                "${labelsX[indexX]}", lineX.toFloat() + 6, midY + 30, Font(Typeface.makeDefault(), 24f),
                 NativePaint()
             )
         }
@@ -91,7 +92,7 @@ private fun DrawScope.gridLines(
         this.drawIntoCanvas {
             if (isMiddle.not()) {
                 it.nativeCanvas.drawString(
-                    "${labels[indexY]}", midX + 8, lineY.toFloat() + 22, Font(Typeface.makeDefault(), 24f),
+                    "${labelsY[indexY]}", midX + 8, lineY.toFloat() + 22, Font(Typeface.makeDefault(), 24f),
                     NativePaint()
                 )
             }
