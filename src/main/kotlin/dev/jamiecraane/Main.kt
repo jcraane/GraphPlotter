@@ -20,11 +20,12 @@ import androidx.compose.ui.graphics.Color
 import dev.jamiecraane.domain.*
 import dev.jamiecraane.domain.mathfunctions.*
 import dev.jamiecraane.ui.graph.GraphPaper
+import dev.jamiecraane.ui.theme.GraphPlotterTheme
 
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
+    GraphPlotterTheme {
         var coordinates by remember { mutableStateOf("-2,-2;0,2;2,-2;-2,-2") }
         var coordinateList: Coordinates by remember(coordinates) {
             mutableStateOf(Coordinates(coordinates))

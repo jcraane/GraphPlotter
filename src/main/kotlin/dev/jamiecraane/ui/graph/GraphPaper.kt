@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import dev.jamiecraane.domain.Coordinates
 import dev.jamiecraane.extensions.toScreenX
 import dev.jamiecraane.extensions.toScreenY
+import dev.jamiecraane.ui.theme.gridLine
+import dev.jamiecraane.ui.theme.paper
 import org.jetbrains.skia.Font
 import org.jetbrains.skia.Typeface
 import kotlin.math.roundToInt
@@ -30,9 +32,9 @@ fun GraphPaper(
     coordinates: Coordinates,
     drawPoints: Boolean = true,
 ) {
-    val gridColor = Color(0xFFBDBDBD)
+    val gridColor = gridLine
 
-    Canvas(modifier = modifier.size(600.dp).background(Color(0xFFFFF4D5))) {
+    Canvas(modifier = modifier.size(600.dp).background(paper)) {
         val gridSize = this.size.width / numberOfBoxes
         val midX = this.size.width / 2
         val midY = this.size.height / 2
